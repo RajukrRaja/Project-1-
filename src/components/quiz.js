@@ -289,24 +289,24 @@ const handleSkip = () => {
     };
 
     const handleSubmit = () => {
-        let calculatedScore = 0;
-    
-        // Loop through each question in the quiz data
-        quizData.forEach((question, index) => {
-            // If the user has answered the question
-            if (userAnswers[index] !== null) {
-                // Compare the selected answer index with the correct answer
-                if (quizData[index].options[userAnswers[index]] === quizData[index].answer) {
-                    calculatedScore++; // Increment score if the selected answer is correct
-                }
-            }
-            // If the user hasn't answered the question, treat it as incorrect (no need to handle here, just ignore)
-        });
-    
-        setScore(calculatedScore); // Update score
-        setShowResult(true); // Show result section
-        setTimeLeft(0); // Stop the timer (optional)
-    };
+      let calculatedScore = 0;
+  
+      // Loop through each question in the quiz data
+      quizData.forEach((question, index) => {
+          // If the user has answered the question
+          if (userAnswers[index] !== null) {
+              // Compare the selected answer (direct string value) with the correct answer
+              if (userAnswers[index] === quizData[index].answer) {
+                  calculatedScore++; // Increment score if the selected answer is correct
+              }
+          }
+      });
+  
+      setScore(calculatedScore); // Update score
+      setShowResult(true); // Show result section
+      setTimeLeft(0); // Stop the timer
+  };
+  
     
 
     // Retry Quiz
