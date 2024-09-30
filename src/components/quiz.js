@@ -319,149 +319,116 @@ const handleSkip = () => {
     };
 
     return (
-        <div className="quiz-container">
-            <h1>Responsive Web Design Quiz</h1>
+      <div className="quiz-container">
+      <h1>Responsive Web Design Quiz</h1>
 
-            {/* Timer and Full-screen button */}
-            <div className="quiz-controls">
-                <div className="timer">Time Left: {formatTime(timeLeft)}</div>
-                <button onClick={handleFullScreenToggle}>
-                    {isFullScreen ? 'Exit Full-Screen' : 'Full-Screen'}
-                </button>
-                <button onClick={handlePauseResume}>
-                    {isPaused ? 'Resume' : 'Pause'}
-                </button>
-            </div>
+      {/* Timer and Full-screen button */}
+      <div className="quiz-controls">
+          <div className="timer">Time Left: {formatTime(timeLeft)}</div>
+          <button onClick={handleFullScreenToggle}>
+              {isFullScreen ? 'Exit Full-Screen' : 'Full-Screen'}
+          </button>
+          <button onClick={handlePauseResume}>
+              {isPaused ? 'Resume' : 'Pause'}
+          </button>
+      </div>
 
-            {!showResult ? (
-                <div className="quiz-content">
-                    {/* Question Navigator */}
-                    <div className="question-navigator">
-                        {quizData.map((_, index) => (
-                            <button
-                                key={index}
-                                className={`question-number-btn ${
-                                    currentQuestion === index ? 'active' : ''
-                                }`}
-                                onClick={() => setCurrentQuestion(index)}
-                            >
-                                {index + 1}
-                            </button>
-                        ))}
-                    </div>
+      {!showResult ? (
+          <div className="quiz-content">
+              {/* Question Navigator */}
+              <div className="question-navigator">
+                  {quizData.map((_, index) => (
+                      <button
+                          key={index}
+                          className={`question-number-btn ${currentQuestion === index ? 'active' : ''}`}
+                          onClick={() => setCurrentQuestion(index)}
+                      >
+                          {index + 1}
+                      </button>
+                  ))}
+              </div>
 
-                    {/* Progress Bar */}
-                    <div className="progress-bar">
-                        <div
-                            className="progress"
-                            style={{ width: `${((currentQuestion + 1) / quizData.length) * 100}%` }}
-                        ></div>
-                    </div>
+              {/* Progress Bar */}
+              <div className="progress-bar">
+                  <div
+                      className="progress"
+                      style={{ width: `${((currentQuestion + 1) / quizData.length) * 100}%` }}
+                  ></div>
+              </div>
 
-                    {/* Question Number */}
-                    <div className="question-number">
-                        Question {currentQuestion + 1} of {quizData.length}
-                    </div>
+              {/* Question Number */}
+              <div className="question-number">
+                  Question {currentQuestion + 1} of {quizData.length}
+              </div>
 
-                    {/* Question Text */}
-                    <div className="question-text">
-                        {quizData[currentQuestion].question}
-                    </div>
+              {/* Question Text */}
+              <div className="question-text">
+                  {quizData[currentQuestion].question}
+              </div>
 
-                    {/* Options */}
-                    <div className="options">
-                        {quizData[currentQuestion].options.map((option, index) => (
-                            <label key={index} className="option-label">
-                                <input
-                                    type="radio"
-                                    name={`question-${currentQuestion}`}
-                                    value={index}
-                                    checked={userAnswers[currentQuestion] === option}
-                                    onChange={() => handleOptionChange(index)}
-                                />
-                                {option}
-                            </label>
-                        ))}
-                    </div>
+              {/* Options */}
+              <div className="options">
+                  {quizData[currentQuestion].options.map((option, index) => (
+                      <label key={index} className="option-label">
+                          <input
+                              type="radio"
+                              name={`question-${currentQuestion}`}
+                              value={index}
+                              checked={userAnswers[currentQuestion] === index}
+                              onChange={() => handleOptionChange(index)}
+                          />
+                          {option}
+                      </label>
+                  ))}
+              </div>
 
-                    {/* Navigation Buttons */}
-                    <div className="navigation-buttons">
-                        <button
-                            onClick={handlePrev}
-                            disabled={currentQuestion === 0}
-                            className="nav-button"
-                        >
-                            Previous
-                        </button>
-                        {currentQuestion < quizData.length - 1 ? (
-                            <button
-                                onClick={handleNext}
-                                disabled={userAnswers[currentQuestion] === null}
-                                className="nav-button"
-                            >
-                                Next
-                            </button>
-                        ) : (
-                            <button
-                                onClick={handleSubmit}
-                                disabled={userAnswers.some(answer => answer === null)}
-                                className="nav-button submit-button"
-                            >
-                                Submit
-                            </button>
-                        )}
-                    </div>
-                </div>
-            ) : (
-                <div className="result-section">
-                    <h2>Your Score: {score} / {quizData.length}</h2>
-                    <p className={score === quizData.length ? 'result-feedback excellent' :
-                        score >= quizData.length * 0.7 ? 'result-feedback good' :
-                        'result-feedback needs-improvement'}>
-                        {score === quizData.length ? 'Excellent work!' :
-                            score >= quizData.length * 0.7 ? 'Good job!' : 'Better luck next time!'}
-                    </p>
-                    <p>Score Percentage: {(score / quizData.length) * 100}%</p>
-                    <button onClick={handleRetry} className="retry-button">Retry Quiz</button>
-                </div>
-
-
-            )}
-
-<div className="navigation-buttons">
-    <button
-        onClick={handlePrev}
-        disabled={currentQuestion === 0}
-        className="nav-button"
-    >
-        Previous
-    </button>
-    <button
-        onClick={handleSkip} // Add the skip functionality here
-        className="nav-button"
-    >
-        Skip
-    </button>
-    {currentQuestion < quizData.length - 1 ? (
-        <button
-            onClick={handleNext}
-            disabled={userAnswers[currentQuestion] === null}
-            className="nav-button"
-        >
-            Next
-        </button>
-    ) : (
-        <button
-            onClick={handleSubmit}
-            disabled={userAnswers.some(answer => answer === null)}
-            className="nav-button submit-button"
-        >
-            Submit
-        </button>
-    )}
-</div>
-        </div>
-    );
+              {/* Navigation Buttons */}
+              <div className="navigation-buttons">
+                  <button
+                      onClick={handlePrev}
+                      disabled={currentQuestion === 0}
+                      className="nav-button"
+                  >
+                      Previous
+                  </button>
+                  <button
+                      onClick={handleSkip}
+                      className="nav-button"
+                  >
+                      Skip
+                  </button>
+                  {currentQuestion < quizData.length - 1 ? (
+                      <button
+                          onClick={handleNext}
+                          className="nav-button"
+                      >
+                          Next
+                      </button>
+                  ) : (
+                      <button
+                          onClick={handleSubmit}
+                          className="nav-button submit-button"
+                      >
+                          Submit
+                      </button>
+                  )}
+              </div>
+          </div>
+      ) : (
+          <div className="result-section">
+              <h2>Your Score: {score} / {quizData.length}</h2>
+              <p className={score === quizData.length ? 'result-feedback excellent' :
+                  score >= quizData.length * 0.7 ? 'result-feedback good' :
+                  'result-feedback needs-improvement'}>
+                  {score === quizData.length ? 'Excellent work!' :
+                      score >= quizData.length * 0.7 ? 'Good job!' : 'Better luck next time!'}
+              </p>
+              <p>Score Percentage: {(score / quizData.length) * 100}%</p>
+              <button onClick={handleRetry} className="retry-button">Retry Quiz</button>
+          </div>
+      )}
+  </div>
+);
 };
 
 export default Quiz;
