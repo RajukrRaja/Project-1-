@@ -252,6 +252,12 @@ const Quiz = () => {
         const secs = seconds % 60;
         return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
     };
+    // Function to handle skipping the question
+const handleSkip = () => {
+  if (currentQuestion < quizData.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
+  }
+};
 
     // Full-screen toggle
     const handleFullScreenToggle = () => {
@@ -418,7 +424,42 @@ const Quiz = () => {
                     <p>Score Percentage: {(score / quizData.length) * 100}%</p>
                     <button onClick={handleRetry} className="retry-button">Retry Quiz</button>
                 </div>
+
+
             )}
+
+<div className="navigation-buttons">
+    <button
+        onClick={handlePrev}
+        disabled={currentQuestion === 0}
+        className="nav-button"
+    >
+        Previous
+    </button>
+    <button
+        onClick={handleSkip} // Add the skip functionality here
+        className="nav-button"
+    >
+        Skip
+    </button>
+    {currentQuestion < quizData.length - 1 ? (
+        <button
+            onClick={handleNext}
+            disabled={userAnswers[currentQuestion] === null}
+            className="nav-button"
+        >
+            Next
+        </button>
+    ) : (
+        <button
+            onClick={handleSubmit}
+            disabled={userAnswers.some(answer => answer === null)}
+            className="nav-button submit-button"
+        >
+            Submit
+        </button>
+    )}
+</div>
         </div>
     );
 };
